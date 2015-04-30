@@ -7,7 +7,9 @@ I would like to show io.js new features.
 ## class
 
 class is available. 
+
 no need to specify any `harmony-` arguments.
+
 note: we should put 'use strict' on top.
 
 ```javascript
@@ -293,4 +295,5 @@ SyntaxError: Please don't use empty sub-statements in strong mode, make them exp
 please check the following issue.
 
 https://github.com/iojs/io.js/pull/1532
+
 https://github.com/iojs/io.js/wiki/Breaking-Changes
