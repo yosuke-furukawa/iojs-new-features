@@ -4,7 +4,7 @@ I would like to show io.js new features.
 
 Current RC binary : https://iojs.org/download/nightly/v2.0.0-nightly201505023fd7fc429c/
 
-# `url.parse` performance is improved.
+# `url` module performance is improved.
 
 ## Before
 
