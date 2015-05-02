@@ -1,6 +1,7 @@
 # io.js v2.0 will be released soon!!!!!!!
 
 I would like to show io.js new features.
+Current RC binary : https://iojs.org/download/nightly/v2.0.0-nightly201505023fd7fc429c/
 
 # URL performance is blazing fast.
 
