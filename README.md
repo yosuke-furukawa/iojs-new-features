@@ -2,82 +2,6 @@
 
 I would like to show io.js new features.
 
-# `url` module performance is improved.
-
-## Before
-
-```
-$ git checkout v1.x && make -j4 && bleed benchmark/misc/url.js
-misc/url.js parse(): 16510
-misc/url.js format(): 18309
-misc/url.js resolve("../foo/bar?baz=boom"): 8929.9
-misc/url.js resolve("foo/bar"): 9919.5
-misc/url.js resolve("http://nodejs.org"): 8177.6
-misc/url.js resolve("./foo/bar?baz"): 8984.4
-
-$ bleed benchmark/common.js url
-url/url-parse.js
-url/url-parse.js type=one n=250000: 82666.55318
-url/url-parse.js type=two n=250000: 84669.54973
-url/url-parse.js type=three n=250000: 80308.64406
-url/url-parse.js type=four n=250000: 262017.65403
-url/url-parse.js type=five n=250000: 203834.95043
-url/url-parse.js type=six n=250000: 68911.18834
-
-url/url-resolve.js
-url/url-resolve.js type=one n=100000: 42331.42854
-```
-
-## After
-
-```
-$ bleed benchmark/misc/url.js
-misc/url.js parse(): 1.6529e+5
-misc/url.js format(): 1.9114e+5
-misc/url.js resolve("../foo/bar?baz=boom"): 24302
-misc/url.js resolve("foo/bar"): 35696
-misc/url.js resolve("http://nodejs.org"): 68003
-misc/url.js resolve("./foo/bar?baz"): 29983
-
-$ bleed benchmark/common.js url
-url/url-parse.js
-url/url-parse.js type=one n=250000: 1244025.74054
-url/url-parse.js type=two n=250000: 2071492.21773
-url/url-parse.js type=three n=250000: 1113916.06067
-url/url-parse.js type=four n=250000: 3416688.31936
-url/url-parse.js type=five n=250000: 1620766.16897
-url/url-parse.js type=six n=250000: 1659564.59318
-
-url/url-resolve.js
-url/url-resolve.js type=one n=100000: 184353.89591
-```
-
-That's 10-24x faster depending on url.
-
-Details is here. 
-https://github.com/iojs/io.js/pull/933
-
-## Note: Url parse does not return JSON object
-
-url module breaks backward compatible. you should call `toJSON` method to get the object.
-
-### Before
-
-```javascript
-var url = require('url');
-var parsedUrl = url.parse('http://user:pass@host.com:8080/p/a/t/h?query=string#hash');
-console.log(parsedUrl); // you can get parsed object.
-```
-
-### After
-
-```javascript
-var url = require('url');
-var parsedUrl = url.parse('http://user:pass@host.com:8080/p/a/t/h?query=string#hash');
-console.log(parsedUrl.toJSON()); // you should call toJSON method to get parsed object.
-```
-
->>>>>>> 13c90a21f116f19abacf385bd7250d8d5a26feb2
 # ECMAScript 2015 - feature
 
 ## class
@@ -376,6 +300,25 @@ $ NODE_REPL_HISTORY_FILE=~/.node_history iojs
 # Ctrl-D
 $ NODE_REPL_HISTORY_FILE=~/.node_history iojs
 > var fs = require('fs'); # push up button
+```
+
+# `os.tmpdir` removed trailing slash.
+
+## before
+
+```javascript
+var os = require('os');
+
+console.log(os.tmpdir());  // /var/folders/zd/qmh1m7812pb_92pq7mntj9vc0000gn/T/
+```
+
+## after
+
+```javascript
+var os = require('os');
+
+console.log(os.tmpdir());  // /var/folders/zd/qmh1m7812pb_92pq7mntj9vc0000gn/T
+                                                   removed trailing slash     ^ 
 ```
 
 # Want to know more??
